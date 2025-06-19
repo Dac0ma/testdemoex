@@ -1,0 +1,424 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MasterPolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="director">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="surname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="patronymic" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="partner" Relationship="Self.FK__partner__directo__403A8C7D" FromRole="director" ToRole="partner" />
+  </EntityType>
+  <EntityType Name="employee">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="surname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="patronymic" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="birth_date" Type="DateTime" Precision="0" />
+    <Property Name="passport_data" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="bank_details" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="family_status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="health_status" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="post_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="order_request" Relationship="Self.FK__order_req__emplo__5165187F" FromRole="employee" ToRole="order_request" />
+    <NavigationProperty Name="posts" Relationship="Self.FK_employee_posts" FromRole="employee" ToRole="posts" />
+    <NavigationProperty Name="users" Relationship="Self.FK_users_employee" FromRole="employee" ToRole="users" />
+  </EntityType>
+  <EntityType Name="material">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="supplier" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="qty_in_pack" Type="Int32" />
+    <Property Name="unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="price" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="stock_qty" Type="Int32" />
+    <Property Name="min_qty" Type="Int32" />
+    <Property Name="material_type_id" Type="Int32" />
+    <Property Name="warehouses_id" Type="Int32" />
+    <NavigationProperty Name="material_type" Relationship="Self.FK__material__materi__4BAC3F29" FromRole="material" ToRole="material_type" />
+    <NavigationProperty Name="warehouses" Relationship="Self.FK_material_warehouses" FromRole="material" ToRole="warehouses" />
+    <NavigationProperty Name="product" Relationship="Self.FK_product_material" FromRole="material" ToRole="product" />
+  </EntityType>
+  <EntityType Name="a">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="type_material" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="percent1" Type="Decimal" Precision="10" Scale="2" />
+    <NavigationProperty Name="material" Relationship="Self.FK__material__materi__4BAC3F29" FromRole="material_type" ToRole="material" />
+  </EntityType>
+  <EntityType Name="order_product">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="order_id" Type="Int32" />
+    <Property Name="product_id" Type="Int32" />
+    <Property Name="qty" Type="Int32" />
+    <Property Name="price" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="delivery_date" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="order_request" Relationship="Self.FK__order_pro__order__5441852A" FromRole="order_product" ToRole="order_request" />
+    <NavigationProperty Name="product" Relationship="Self.FK__order_pro__produ__5535A963" FromRole="order_product" ToRole="product" />
+  </EntityType>
+  <EntityType Name="order_request">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="partner_id" Type="Int32" />
+    <Property Name="employee_id" Type="Int32" />
+    <Property Name="order_date" Type="DateTime" Precision="0" />
+    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="total_amount" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="prepayment" Type="Boolean" />
+    <NavigationProperty Name="employee" Relationship="Self.FK__order_req__emplo__5165187F" FromRole="order_request" ToRole="employee" />
+    <NavigationProperty Name="order_product" Relationship="Self.FK__order_pro__order__5441852A" FromRole="order_request" ToRole="order_product" />
+    <NavigationProperty Name="partner" Relationship="Self.FK__order_req__partn__5070F446" FromRole="order_request" ToRole="partner" />
+  </EntityType>
+  <EntityType Name="partner">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="inn" Type="Int32" />
+    <Property Name="rating" Type="Int32" />
+    <Property Name="partner_type_id" Type="Int32" />
+    <Property Name="director_id" Type="Int32" />
+    <Property Name="login" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="director" Relationship="Self.FK__partner__directo__403A8C7D" FromRole="partner" ToRole="director" />
+    <NavigationProperty Name="order_request" Relationship="Self.FK__order_req__partn__5070F446" FromRole="partner" ToRole="order_request" />
+    <NavigationProperty Name="partner_type" Relationship="Self.FK__partner__partner__3F466844" FromRole="partner" ToRole="partner_type" />
+  </EntityType>
+  <EntityType Name="partner_type">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="partner" Relationship="Self.FK__partner__partner__3F466844" FromRole="partner_type" ToRole="partner" />
+  </EntityType>
+  <EntityType Name="posts">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="employee" Relationship="Self.FK_employee_posts" FromRole="posts" ToRole="employee" />
+  </EntityType>
+  <EntityType Name="product">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="article" Type="Int32" />
+    <Property Name="min_price" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="type_id" Type="Int32" />
+    <Property Name="material_id" Type="Int32" />
+    <NavigationProperty Name="material" Relationship="Self.FK_product_material" FromRole="product" ToRole="material" />
+    <NavigationProperty Name="order_product" Relationship="Self.FK__order_pro__produ__5535A963" FromRole="product" ToRole="order_product" />
+    <NavigationProperty Name="product_type" Relationship="Self.FK__product__type_id__4316F928" FromRole="product" ToRole="product_type" />
+  </EntityType>
+  <EntityType Name="product_type">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="type_product" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="coefficient_product" Type="Decimal" Precision="10" Scale="2" />
+    <NavigationProperty Name="product" Relationship="Self.FK__product__type_id__4316F928" FromRole="product_type" ToRole="product" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="login" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="employee_id" Type="Int32" />
+    <NavigationProperty Name="employee" Relationship="Self.FK_users_employee" FromRole="users" ToRole="employee" />
+  </EntityType>
+  <EntityType Name="warehouses">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="current_stock" Type="Int32" />
+    <NavigationProperty Name="material" Relationship="Self.FK_material_warehouses" FromRole="warehouses" ToRole="material" />
+  </EntityType>
+  <Association Name="FK__partner__directo__403A8C7D">
+    <End Role="director" Type="Self.director" Multiplicity="0..1" />
+    <End Role="partner" Type="Self.partner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="director">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="partner">
+        <PropertyRef Name="director_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__order_req__emplo__5165187F">
+    <End Role="employee" Type="Self.employee" Multiplicity="0..1" />
+    <End Role="order_request" Type="Self.order_request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employee">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="order_request">
+        <PropertyRef Name="employee_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_employee_posts">
+    <End Role="posts" Type="Self.posts" Multiplicity="1" />
+    <End Role="employee" Type="Self.employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="posts">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="employee">
+        <PropertyRef Name="post_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_users_employee">
+    <End Role="employee" Type="Self.employee" Multiplicity="0..1" />
+    <End Role="users" Type="Self.users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employee">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="users">
+        <PropertyRef Name="employee_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__material__materi__4BAC3F29">
+    <End Role="material_type" Type="MasterPolModel.a" Multiplicity="0..1" />
+    <End Role="material" Type="Self.material" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="material_type">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="material">
+        <PropertyRef Name="material_type_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_material_warehouses">
+    <End Role="warehouses" Type="Self.warehouses" Multiplicity="0..1" />
+    <End Role="material" Type="Self.material" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="warehouses">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="material">
+        <PropertyRef Name="warehouses_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_product_material">
+    <End Role="material" Type="Self.material" Multiplicity="0..1" />
+    <End Role="product" Type="Self.product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="material">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="product">
+        <PropertyRef Name="material_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__order_pro__order__5441852A">
+    <End Role="order_request" Type="Self.order_request" Multiplicity="0..1" />
+    <End Role="order_product" Type="Self.order_product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="order_request">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="order_product">
+        <PropertyRef Name="order_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__order_pro__produ__5535A963">
+    <End Role="product" Type="Self.product" Multiplicity="0..1" />
+    <End Role="order_product" Type="Self.order_product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="order_product">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__order_req__partn__5070F446">
+    <End Role="partner" Type="Self.partner" Multiplicity="0..1" />
+    <End Role="order_request" Type="Self.order_request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="partner">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="order_request">
+        <PropertyRef Name="partner_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__partner__partner__3F466844">
+    <End Role="partner_type" Type="Self.partner_type" Multiplicity="0..1" />
+    <End Role="partner" Type="Self.partner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="partner_type">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="partner">
+        <PropertyRef Name="partner_type_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__product__type_id__4316F928">
+    <End Role="product_type" Type="Self.product_type" Multiplicity="0..1" />
+    <End Role="product" Type="Self.product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product_type">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="product">
+        <PropertyRef Name="type_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MasterPolEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="director" EntityType="Self.director" />
+    <EntitySet Name="employee" EntityType="Self.employee" />
+    <EntitySet Name="material" EntityType="Self.material" />
+    <EntitySet Name="material_type" EntityType="MasterPolModel.a" />
+    <EntitySet Name="order_product" EntityType="Self.order_product" />
+    <EntitySet Name="order_request" EntityType="Self.order_request" />
+    <EntitySet Name="partner" EntityType="Self.partner" />
+    <EntitySet Name="partner_type" EntityType="Self.partner_type" />
+    <EntitySet Name="posts" EntityType="Self.posts" />
+    <EntitySet Name="product" EntityType="Self.product" />
+    <EntitySet Name="product_type" EntityType="Self.product_type" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="users" EntityType="Self.users" />
+    <EntitySet Name="warehouses" EntityType="Self.warehouses" />
+    <AssociationSet Name="FK__partner__directo__403A8C7D" Association="Self.FK__partner__directo__403A8C7D">
+      <End Role="director" EntitySet="director" />
+      <End Role="partner" EntitySet="partner" />
+    </AssociationSet>
+    <AssociationSet Name="FK__order_req__emplo__5165187F" Association="Self.FK__order_req__emplo__5165187F">
+      <End Role="employee" EntitySet="employee" />
+      <End Role="order_request" EntitySet="order_request" />
+    </AssociationSet>
+    <AssociationSet Name="FK_employee_posts" Association="Self.FK_employee_posts">
+      <End Role="posts" EntitySet="posts" />
+      <End Role="employee" EntitySet="employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_users_employee" Association="Self.FK_users_employee">
+      <End Role="employee" EntitySet="employee" />
+      <End Role="users" EntitySet="users" />
+    </AssociationSet>
+    <AssociationSet Name="FK__material__materi__4BAC3F29" Association="Self.FK__material__materi__4BAC3F29">
+      <End Role="material_type" EntitySet="material_type" />
+      <End Role="material" EntitySet="material" />
+    </AssociationSet>
+    <AssociationSet Name="FK_material_warehouses" Association="Self.FK_material_warehouses">
+      <End Role="warehouses" EntitySet="warehouses" />
+      <End Role="material" EntitySet="material" />
+    </AssociationSet>
+    <AssociationSet Name="FK_product_material" Association="Self.FK_product_material">
+      <End Role="material" EntitySet="material" />
+      <End Role="product" EntitySet="product" />
+    </AssociationSet>
+    <AssociationSet Name="FK__order_pro__order__5441852A" Association="Self.FK__order_pro__order__5441852A">
+      <End Role="order_request" EntitySet="order_request" />
+      <End Role="order_product" EntitySet="order_product" />
+    </AssociationSet>
+    <AssociationSet Name="FK__order_pro__produ__5535A963" Association="Self.FK__order_pro__produ__5535A963">
+      <End Role="product" EntitySet="product" />
+      <End Role="order_product" EntitySet="order_product" />
+    </AssociationSet>
+    <AssociationSet Name="FK__order_req__partn__5070F446" Association="Self.FK__order_req__partn__5070F446">
+      <End Role="partner" EntitySet="partner" />
+      <End Role="order_request" EntitySet="order_request" />
+    </AssociationSet>
+    <AssociationSet Name="FK__partner__partner__3F466844" Association="Self.FK__partner__partner__3F466844">
+      <End Role="partner_type" EntitySet="partner_type" />
+      <End Role="partner" EntitySet="partner" />
+    </AssociationSet>
+    <AssociationSet Name="FK__product__type_id__4316F928" Association="Self.FK__product__type_id__4316F928">
+      <End Role="product_type" EntitySet="product_type" />
+      <End Role="product" EntitySet="product" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(MasterPolModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(MasterPolModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

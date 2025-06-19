@@ -1,0 +1,24 @@
+﻿<Window x:Class="podgotovkaDemo.createzayavki"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:podgotovkaDemo"
+        mc:Ignorable="d" WindowState="Maximized"
+        Title="Мастер пол - создание заявки" Height="1000" Width="1720" MinHeight="800" MinWidth="1200">
+    <Grid Background="#F4E8D3">
+        <DockPanel VerticalAlignment="Top">
+            <Image Source="C:\Users\ДимаВащеКласс\source\repos\podgotovkaDemo\podgotovkaDemo\kart\Мастер пол.png" Width="70" Height="70" Margin="10" HorizontalAlignment="Left"/>
+            <Button Content="Назад"  FontSize="25" Margin="10" Height="73" Width="247" Padding="5"  Background="#67BA80" x:Name="exit" Click="exit_Click" HorizontalAlignment="Right"/>
+        </DockPanel>
+
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Продукция" FontSize="28" Padding="5"></TextBlock>
+            <ComboBox  FontSize="28" Margin="10" Name="product" Height="62" Width="701"></ComboBox>
+            <TextBlock Text="Количество продукции" FontSize="28" Padding="5"></TextBlock>
+            <TextBox Name="kolvo" Margin="10" Width="701" Height="62" FontSize="28"></TextBox>
+            <Button x:Name="Confirm" Height="62" FontSize="28" Margin="10" Width="384" Content="Оформить заявку" Background="#67BA80" Click="Confirm_Click"></Button>
+        </StackPanel>
+        
+    </Grid>
+</Window>
